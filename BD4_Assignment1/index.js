@@ -1,26 +1,48 @@
+// const express = require('express');
+// const cors = require("cors");
+// const sqlite3 = require("sqlite3").verbose();
+// const { open } = require("sqlite");
+
+// const app = express();
+// const PORT = process.env.PORT || 3000;
+
+// app.use(cors());
+// app.use(express.json());
+
+// let db;
+// (async () => {
+//   try {
+//     db = await open({
+//       filename: "./BD4_Assignment1/database.sqlite",
+//       driver: sqlite3.Database,
+//     });
+//     console.log("Database connected.");
+//   } catch (error) {
+//     console.error("Database connection failed:", error.message);
+//   }
+// })();
+
 const express = require('express');
-const cors = require("cors");
-const sqlite3 = require("sqlite3").verbose();
-const { open } = require("sqlite");
+const { resolve } = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = 3000;
 
-app.use(cors());
-app.use(express.json());
-
+app.use(express.static('static'));
+const cors=require('cors');
+const {open}=require('sqlite')
+const sqlite3=require('sqlite3').verbose();
 let db;
-(async () => {
-  try {
-    db = await open({
-      filename: "./BD4_Assignment1/database.sqlite",
-      driver: sqlite3.Database,
-    });
-    console.log("Database connected.");
-  } catch (error) {
-    console.error("Database connection failed:", error.message);
-  }
+(async ()=>{
+  db=await open({
+    filename:'./database.sqlite',
+    driver:sqlite3.Database,
+  });
 })();
+
+
+
+
 
 // 1. Get All Restaurants
 app.get("/restaurants", async (req, res) => {
@@ -135,3 +157,10 @@ app.get("/dishes/sort-by-price", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
+
+
+
+
+
